@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>요즘 대학생, 궁금한 거 없으세요? · 윤혜성</title>
+<meta name="description" content="질문 하나 남겨주시면 한성대 학생 10명에게 직접 물어보고 3일 안에 답장드립니다.">
+<meta property="og:title" content="요즘 대학생, 궁금한 거 없으세요?">
+<meta property="og:description" content="질문 하나 남겨주시면 한성대 학생 10명에게 직접 물어보고 3일 안에 답장드립니다.">
+<meta name="theme-color" content="#F5F3EE">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  :root {
+    --paper: #F5F3EE;
+    --ink: #141414;
+    --mute: #76726A;
+    --line: #D9D5CC;
+    --field: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 520px; margin: 0 auto; padding: 28px 24px 56px; }
+
+  .top {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; letter-spacing: 0.08em; color: var(--mute);
+    padding-bottom: 16px; border-bottom: 1px solid var(--ink);
+  }
+  .top b { color: var(--ink); font-weight: 600; }
+
+  h1 {
+    font-size: clamp(34px, 10vw, 46px);
+    font-weight: 700; line-height: 1.18; letter-spacing: -0.035em;
+    margin: 44px 0 20px;
+  }
+  .lead { font-size: 17px; line-height: 1.65; color: #2E2D2A; }
+  .lead strong { font-weight: 600; color: var(--ink); }
+  .terms {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px;
+    font-size: 13px; color: var(--mute);
+  }
+  .terms span { border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; }
+
+  form { margin-top: 44px; }
+  label { display: block; font-size: 13px; font-weight: 600; letter-spacing: 0.01em; margin: 24px 0 8px; }
+  label small { font-weight: 400; color: var(--mute); margin-left: 6px; }
+  textarea, input {
+    width: 100%; font: inherit; font-size: 16px; color: var(--ink);
+    background: var(--field); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px 16px; outline: none; transition: border-color .15s;
+    -webkit-appearance: none; appearance: none;
+  }
+  textarea { min-height: 132px; resize: vertical; line-height: 1.55; }
+  textarea:focus, input:focus { border-color: var(--ink); }
+  ::placeholder { color: #B0ACA3; }
+
+  .chips { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+  .chips button {
+    font: inherit; font-size: 14px; text-align: left; color: #4A4843;
+    background: none; border: none; border-bottom: 1px solid var(--line);
+    padding: 8px 0; cursor: pointer;
+  }
+  .chips button::before { content: "↳ "; color: var(--mute); }
+  .chips button:hover { color: var(--ink); }
+
+  .send {
+    width: 100%; margin-top: 32px; font: inherit; font-size: 16px; font-weight: 600;
+    color: var(--paper); background: var(--ink); border: 1px solid var(--ink);
+    border-radius: 10px; padding: 16px; cursor: pointer; transition: opacity .15s;
+  }
+  .send:disabled { opacity: .5; cursor: default; }
+  .note { font-size: 12.5px; color: var(--mute); margin-top: 12px; text-align: center; }
+  .error { font-size: 14px; margin-top: 14px; display: none; }
+  .error a { color: var(--ink); }
+  .hp { position: absolute; left: -9999px; }
+
+  .done { display: none; margin-top: 44px; padding: 32px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); }
+  .done h2 { font-size: 24px; letter-spacing: -0.03em; line-height: 1.3; }
+  .done p { margin-top: 10px; color: #2E2D2A; }
+
+  .about { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--ink); }
+  .about .eyebrow { font-size: 12px; letter-spacing: 0.08em; color: var(--mute); }
+  .about h2 { font-size: 22px; letter-spacing: -0.03em; margin: 10px 0 4px; }
+  .about .role { font-size: 14px; color: var(--mute); }
+  .about p { margin-top: 16px; font-size: 15.5px; color: #2E2D2A; }
+  .links { list-style: none; margin-top: 24px; }
+  .links li { border-top: 1px solid var(--line); }
+  .links li:last-child { border-bottom: 1px solid var(--line); }
+  .links a {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+    padding: 14px 0; color: var(--ink); text-decoration: none; font-size: 15px;
+  }
+  .links a span { font-size: 12px; letter-spacing: 0.06em; color: var(--mute); flex: none; }
+  .links a b { font-weight: 500; text-align: right; overflow-wrap: anywhere; }
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><b>윤혜성</b><span>한성대 컴퓨터공학부 4학년</span></div>
+
+  <h1>요즘 대학생,<br>궁금한 거<br>없으세요?</h1>
+  <p class="lead">질문 하나 남겨주시면 <strong>한성대 학생 10명에게 직접 물어보고</strong> 3일 안에 답장드립니다.</p>
+  <div class="terms"><span>무료</span><span>선착순 10분</span><span>3일 안에 답장</span></div>
+
+  <form id="ask" novalidate>
+    <label for="q">궁금한 것</label>
+    <textarea id="q" name="질문" placeholder="예) 우리 서비스, 대학생이 보면 쓸까요?" required></textarea>
+    <div class="chips" aria-label="예시 질문">
+      <button type="button">대학생은 한 달에 구독료를 얼마나 쓰나요?</button>
+      <button type="button">요즘 대학생은 왜 전화를 안 받죠?</button>
+      <button type="button">이 서비스, 대학생이라면 돈 내고 쓸까요?</button>
+    </div>
+
+    <label for="c">답장받을 연락처<small>이메일, 전화번호, 카톡 아이디 중 편한 것</small></label>
+    <input id="c" name="연락처" autocomplete="email" placeholder="답장드릴 곳" required>
+
+    <label for="n">성함과 하시는 일<small>선택</small></label>
+    <input id="n" name="이름과 하는 일" autocomplete="name" placeholder="예) 홍길동, 교육 스타트업 대표">
+
+    <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <button class="send" type="submit">질문 보내기</button>
+    <p class="note">남겨주신 연락처는 답장드리는 데만 씁니다.</p>
+    <p class="error" id="err">전송이 안 됐습니다. <a id="mailto" href="#">메일로 바로 보내기</a></p>
+  </form>
+
+  <section class="done" id="done" aria-live="polite">
+    <h2>잘 받았습니다.<br>3일 안에 답장드릴게요.</h2>
+    <p>학생 10명에게 직접 물어보고 정리해서 보내드리겠습니다.</p>
+  </section>
+
+  <section class="about">
+    <div class="eyebrow">물어봐 드리는 사람</div>
+    <h2>윤혜성</h2>
+    <div class="role">한성대학교 컴퓨터공학부 4학년 · 24살</div>
+    <p>낮엔 조교, 밤엔 PC방 알바, 새벽엔 창업 준비를 합니다. 화면 속 문제를 캡처하면 AI가 풀이해 주는 맥 앱 Paxo를 만들고 있습니다.</p>
+    <ul class="links">
+      <li><a href="mailto:hyeseongyun.dev@gmail.com"><span>EMAIL</span><b>hyeseongyun.dev@gmail.com</b></a></li>
+      <li><a href="tel:01041053516"><span>PHONE</span><b>010-4105-3516</b></a></li>
+      <li><a href="https://www.linkedin.com/in/hyeseong-yun/" target="_blank" rel="noopener"><span>LINKEDIN</span><b>linkedin.com/in/hyeseong-yun</b></a></li>
+    </ul>
+  </section>
+</main>
+
+<script>
+  const EMAIL = "hyeseongyun.dev@gmail.com";
+  const form = document.getElementById("ask");
+  const q = document.getElementById("q");
+  const err = document.getElementById("err");
+
+  document.querySelectorAll(".chips button").forEach((b) =>
+    b.addEventListener("click", () => { q.value = b.textContent; q.focus(); })
+  );
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!q.value.trim()) { q.focus(); return; }
+    const c = document.getElementById("c");
+    if (!c.value.trim()) { c.focus(); return; }
+
+    const data = Object.fromEntries(new FormData(form));
+    data._subject = "[대학생에게 물어보세요] 새 질문";
+    data._template = "table";
+
+    const btn = form.querySelector(".send");
+    btn.disabled = true; btn.textContent = "보내는 중";
+    err.style.display = "none";
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/" + EMAIL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error(res.status);
+      form.style.display = "none";
+      document.getElementById("done").style.display = "block";
+      document.getElementById("done").scrollIntoView({ behavior: "smooth", block: "center" });
+    } catch (_) {
+      // 전송 서비스가 막혀도 질문을 잃지 않도록 메일 앱으로 넘긴다
+      const body = `질문: ${data["질문"]}\n연락처: ${data["연락처"]}\n이름과 하는 일: ${data["이름과 하는 일"] || ""}`;
+      document.getElementById("mailto").href =
+        `mailto:${EMAIL}?subject=${encodeURIComponent("대학생에게 물어보고 싶은 것")}&body=${encodeURIComponent(body)}`;
+      err.style.display = "block";
+      btn.disabled = false; btn.textContent = "질문 보내기";
+    }
+  });
+</script>
+</body>
+</html>
