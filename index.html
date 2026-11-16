@@ -152,6 +152,34 @@
 
 <script>
   const EMAIL = "hyeseongyun.dev@gmail.com";
+
+  // 집계: 가입 없는 카운터 API에 숫자만 올린다. 실패해도 페이지 동작에는 영향이 없어야 한다
+  const COUNTER = "https://abacus.jasoncameron.dev";
+  const NS = "hyesngy-ask";
+  const store = {
+    get: (k) => { try { return localStorage.getItem(k); } catch (_) { return null; } },
+    set: (k, v) => { try { localStorage.setItem(k, v); } catch (_) {} },
+  };
+  const hit = (key) => fetch(`${COUNTER}/hit/${NS}/${key}`).catch(() => {});
+  const read = (key) =>
+    fetch(`${COUNTER}/get/${NS}/${key}`).then((r) => r.json()).then((d) => d.value || 0).catch(() => 0);
+
+  if (new URLSearchParams(location.search).has("stats")) {
+    // 내 기기는 이후 집계에서 뺀다
+    store.set("ask_owner", "1");
+    Promise.all(["views", "visitors", "submits"].map(read)).then(([views, visitors, submits]) => {
+      document.querySelector("main").innerHTML = `
+        <div class="top"><b>집계</b><span>이 기기는 집계에서 제외됩니다</span></div>
+        <ul class="links" style="margin-top:44px">
+          <li><a><span>페이지 열람</span><b>${views}회</b></a></li>
+          <li><a><span>방문 기기</span><b>${visitors}대</b></a></li>
+          <li><a><span>질문 제출</span><b>${submits}건</b></a></li>
+        </ul>`;
+    });
+  } else if (!store.get("ask_owner")) {
+    hit("views");
+    if (!store.get("ask_seen")) { store.set("ask_seen", "1"); hit("visitors"); }
+  }
   const form = document.getElementById("ask");
   const q = document.getElementById("q");
   const err = document.getElementById("err");
@@ -180,6 +208,7 @@
         body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error(res.status);
+      if (!store.get("ask_owner")) hit("submits");
       form.style.display = "none";
       document.getElementById("done").style.display = "block";
       document.getElementById("done").scrollIntoView({ behavior: "smooth", block: "center" });
